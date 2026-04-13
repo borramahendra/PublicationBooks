@@ -11,6 +11,7 @@ import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -70,7 +71,7 @@ public class BooksConfig {
 	}
 	
 	@Bean
-	public Job job(JobRepository jobRepository,Step step1) {
+	public Job job(JobRepository jobRepository, @Qualifier("step") Step step1) {
 		return new JobBuilder("job",jobRepository)
 				.flow(step1)
 				.end()
